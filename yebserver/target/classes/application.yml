@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yeb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Hu@123456
+    hikari:
+      pool-name: DateHikariCP
+      minimum-idle: 5
+      maximum-pool-size: 10
+      max-lifetime: 1800000
+      idle-timeout: 18000
+      auto-commit: true
+      connection-timeout: 30000
+      connection-test-query: select 1
+
+
+mybatis-plus:
+  config-location: classpath*:/mapper/*Mapper.xml
+  type-aliases-package: com.org.hu.pojo
+
+
+logging:
+  level:
+    com.org.hu.mapper: debug
