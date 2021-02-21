@@ -31,15 +31,15 @@ public class JwtAuthencationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
        String authHeader= request.getHeader(tokenHeader);
        //存在token
-       if(null!=authHeader&&authHeader.startsWith(tokenHeader)){
+       if(null!=authHeader&&authHeader.startsWith(tokenHead)){
            String authToken= authHeader.substring(tokenHead.length());
            String username=jwtTokenUtil.getUserNameFromToken(authToken);
            //存在用户名，但是未登录
-           if(null!=username&&null!= SecurityContextHolder.getContext().getAuthentication()){
+           if(null!=username&&null== SecurityContextHolder.getContext().getAuthentication()){
             //登录
               UserDetails userDetails= userDetailsService.loadUserByUsername(username);
               //校验token是否有效,重新设置用户对象
-              if(jwtTokenUtil.validaetToken(tokenHead,userDetails)){
+              if(jwtTokenUtil.validaetToken(authToken,userDetails)){
                   UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                   usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                   SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

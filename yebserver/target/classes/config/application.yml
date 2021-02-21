@@ -18,7 +18,7 @@ spring:
 
 
 mybatis-plus:
-  config-location: classpath*:/mapper/*Mapper.xml
+  mapper-locations: classpath*:/mapper/*Mapper.xml
   type-aliases-package: com.org.hu.pojo
 
 
@@ -32,6 +32,6 @@ jwt:
   #JWT加密时使用的密匙
   secret: yeb-secret
   #JWT加密的期限时间 （60*60*24）
-  expriation: 604800
+  expration: 604800
   #JWT负载中拿到的开头
   tokenHead: Bearer

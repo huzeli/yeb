@@ -16,10 +16,10 @@ public class JwtTokenUtil {
 
     private static final String CLAIM_KEY_USERNAME="sub";
     private static final String CLAIM_KEY_CREATED="created";
-    @Value("${secret}")
+    @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.expration}")
     private Long expiration;
 
     public String generateToken(UserDetails userDetails){
@@ -30,7 +30,7 @@ public class JwtTokenUtil {
     }
 
     public String generateToken(Map<String,Object> claims){
-        return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate()).signWith(SignatureAlgorithm.ES512,secret).compact();
+        return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate()).signWith(SignatureAlgorithm.HS512,secret).compact();
     }
 
     /**
