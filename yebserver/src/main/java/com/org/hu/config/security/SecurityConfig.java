@@ -1,19 +1,22 @@
 package com.org.hu.config.security;
 
+import com.org.hu.config.security.component.*;
 import com.org.hu.pojo.Admin;
 import com.org.hu.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -27,6 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
+    @Autowired
+    private CusumUrlDisprationManager cusumUrlDisprationManager;
+
+    @Autowired
+    private ConsumFilter consumFilter;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
@@ -43,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/doc.html",
                 "/webjars/**",
                 "/swagger-resources/**",
-                "/v2/api-docs/**");
+                "/v2/api-docs/**",
+                "/captcha");
     }
 
     @Override
@@ -56,6 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 //除了上面的请求，其他的地址都需要认证
                 .anyRequest().authenticated()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setAccessDecisionManager(cusumUrlDisprationManager);
+                        o.setSecurityMetadataSource(consumFilter);
+                        return o;
+                    }
+                })
                 //禁用缓存
                 .and().headers().cacheControl();
 
@@ -72,9 +89,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return username ->{
             Admin admin=adminService.getAdminInfo(username);
             if(null!=admin){
+                admin.setRoles(adminService.getRoles(admin.getId()));
                 return admin;
             }
-            return null;
+            throw new UsernameNotFoundException("用户名或密码不正确");
         };
     }
 

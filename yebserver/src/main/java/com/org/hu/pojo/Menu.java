@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -26,6 +27,9 @@ import java.io.Serializable;
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value ="id")
+    private Integer id;
 
     @ApiModelProperty(value = "url")
     private String url;
@@ -59,4 +63,12 @@ public class Menu implements Serializable {
     private Boolean enabled;
 
 
+    @ApiModelProperty(value = "子菜单")
+    @TableField(exist = false)
+    //排除不存在的数据库字段
+    private List<Menu> children;
+
+    @ApiModelProperty(value = "角色列表")
+    @TableField(exist = false)
+    private List<Role> roles;
 }

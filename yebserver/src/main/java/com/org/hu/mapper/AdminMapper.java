@@ -2,6 +2,9 @@ package com.org.hu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.org.hu.pojo.Admin;
+import com.org.hu.pojo.Menu;
+
+import java.util.List;
 
 /**
  * <p>

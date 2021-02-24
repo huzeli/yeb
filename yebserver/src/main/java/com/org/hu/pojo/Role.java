@@ -27,6 +27,9 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "id")
+    private Integer id;
+
     @ApiModelProperty(value = "名称")
     private String name;
 

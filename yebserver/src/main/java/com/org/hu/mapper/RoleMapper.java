@@ -3,6 +3,8 @@ package com.org.hu.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.org.hu.pojo.Role;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.org.hu.pojo.Role;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
+    List<Role> getRoles(Integer adminId);
 }

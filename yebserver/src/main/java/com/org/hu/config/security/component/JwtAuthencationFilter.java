@@ -1,6 +1,5 @@
-package com.org.hu.config.security;
+package com.org.hu.config.security.component;
 
-import com.org.hu.pojo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

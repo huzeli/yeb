@@ -15,4 +15,15 @@
         name, nameZh
     </sql>
 
+    <select id="getRoles" resultType="com.org.hu.pojo.Role">
+        SELECT
+	r.id,
+	r.`name`,
+	r.nameZh
+FROM
+	t_role r
+LEFT JOIN t_admin_role mr ON r.id = mr.rid
+WHERE
+	mr.adminId = #{adminId}
+    </select>
 </mapper>

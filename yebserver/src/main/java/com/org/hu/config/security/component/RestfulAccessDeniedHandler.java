@@ -1,4 +1,4 @@
-package com.org.hu.config.security;
+package com.org.hu.config.security.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.hu.pojo.RespBean;

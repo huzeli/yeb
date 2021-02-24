@@ -1,4 +1,4 @@
-package com.org.hu.config.security;
+package com.org.hu.config.security.component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
