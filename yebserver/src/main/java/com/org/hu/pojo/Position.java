@@ -30,6 +30,8 @@ public class Position implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "id")
+    private Integer id;
     @ApiModelProperty(value = "职位")
     private String name;
 

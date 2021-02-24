@@ -60,7 +60,7 @@ public class PositionController {
     }
 
     @ApiOperation(value = "删除职位信息")
-    @DeleteMapping("/")
+    @DeleteMapping("/{id}")
     public RespBean deletePosition(@PathVariable Integer id){
         if(positionService.removeById(id)){
             return RespBean.success("删除成功！");
@@ -69,7 +69,7 @@ public class PositionController {
     }
 
     @ApiOperation(value = "批量删除职位信息")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/")
     public RespBean deletePositions(@PathVariable Integer[] ids){
         if(positionService.removeByIds(Arrays.asList(ids))){
             return RespBean.success("删除成功！");
