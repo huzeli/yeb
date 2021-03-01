@@ -1,13 +1,19 @@
 package com.org.hu.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedJdbcTypes;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -26,12 +32,16 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("t_position")
 @ApiModel(value="Position对象", description="")
+@Setter
+@Getter
 public class Position implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id")
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
+
     @ApiModelProperty(value = "职位")
     private String name;
 

@@ -1,6 +1,7 @@
 package com.org.hu.controller;
 
 
+
 import com.org.hu.pojo.Position;
 import com.org.hu.pojo.RespBean;
 import com.org.hu.service.IPositionService;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
  * @since 2021-02-20
  */
 @RestController
-@RequestMapping("/system/config/pos")
+@RequestMapping("/system/basic/pos")
 public class PositionController {
 
     @Autowired
@@ -70,7 +72,7 @@ public class PositionController {
 
     @ApiOperation(value = "批量删除职位信息")
     @DeleteMapping("/")
-    public RespBean deletePositions(@PathVariable Integer[] ids){
+    public RespBean deletePositions(Integer[] ids){
         if(positionService.removeByIds(Arrays.asList(ids))){
             return RespBean.success("删除成功！");
         }
