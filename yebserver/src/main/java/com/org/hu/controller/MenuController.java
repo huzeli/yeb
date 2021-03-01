@@ -32,4 +32,10 @@ public class MenuController {
         return menuService.getMenusBtAdminId();
     }
 
+//    @ApiOperation("查询所有菜单")
+//    @GetMapping("")
+//    public List<Menu> getAllMenus(){
+//        return menuService.getAllMenus();
+//    }
+
 }

@@ -15,4 +15,21 @@
         mid, rid
     </sql>
 
+
+    <select id="getMenusIdsByRoleId" resultType="java.lang.Integer" >
+        SELECT
+        mr.mid
+        FROM
+        t_menu_role mr
+
+        WHERE
+        mr.rid = #{rid}
+    </select>
+
+    <insert id="inserRecord" >
+        insert into t_menu_role(mid,rid) values
+        <foreach collection="mids" item="mid" separator=",">
+            (#{mid},#{rid})
+        </foreach>
+    </insert>
 </mapper>

@@ -88,5 +88,26 @@ ORDER BY
 	m.id
     </select>
 
+    <select id="getAllMenus" resultMap="menus" >
+        SELECT
+        DISTINCT
+        m1.*, m2.id AS id2,
+        m2.`name` AS name2,
+        m2.component AS component2,
+        m2.enabled AS enabled2,
+        m2.iconCls AS iconCls2,
+        m2.keepAlive AS keepAlive2,
+        m2.parentId AS parentId2,
+        m2.path AS path2,
+        m2.requireAuth AS requireAuth2,
+        m2.url AS url2
+        FROM
+        t_menu m1,
+        t_menu m2
+        WHERE
+        m1.id = m2.parentId
+        ORDER BY
+        m1.id ASC
+    </select>
 
 </mapper>

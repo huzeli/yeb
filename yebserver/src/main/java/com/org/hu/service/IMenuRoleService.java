@@ -1,7 +1,11 @@
 package com.org.hu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.org.hu.pojo.Menu;
 import com.org.hu.pojo.MenuRole;
+import com.org.hu.pojo.RespBean;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.org.hu.pojo.MenuRole;
  */
 public interface IMenuRoleService extends IService<MenuRole> {
 
+    List<Integer> getMenusIdsByRoleId(Integer id);
+
+    RespBean updateMenusByRoleId(Integer id, Integer[] mids);
 }
