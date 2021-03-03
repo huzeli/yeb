@@ -37,6 +37,9 @@ public class RoleController {
     @ApiOperation("添加角色")
     @PostMapping("/")
     public RespBean addRole(@RequestBody Role role){
+        if(!role.getName().startsWith("ROLE_")){
+            role.setName("ROLE_"+role.getName());
+        }
         if(roleService.save(role)){
             return RespBean.success("添加成功");
         }else{

@@ -38,6 +38,22 @@
     </resultMap>
 
 
+    <resultMap id="menus2" type="com.org.hu.pojo.Menu" extends="BaseResultMap" >
+        <collection property="children" ofType="com.org.hu.pojo.Menu">
+            <result column="id2" property="id" />
+            <result column="url2" property="url" />
+            <result column="path2" property="path" />
+            <result column="component2" property="component" />
+            <result column="name2" property="name" />
+            <result column="iconCls2" property="iconCls" />
+            <result column="keepAlive2" property="keepAlive" />
+            <result column="requireAuth2" property="requireAuth" />
+            <result column="parentId2" property="parentId" />
+            <result column="enabled2" property="enabled" />
+            <collection property="children" ofType="com.org.hu.pojo.Menu" ></collection>
+        </collection>
+    </resultMap>
+
     <resultMap id="menusWithRole" type="com.org.hu.pojo.Menu" extends="BaseResultMap">
         <collection property="roles" ofType="com.org.hu.pojo.Role">
             <result column="rid" property="id" />
@@ -105,7 +121,8 @@ ORDER BY
         t_menu m1,
         t_menu m2
         WHERE
-        m1.id = m2.parentId
+       m2.parentId  = m1.id
+
         ORDER BY
         m1.id ASC
     </select>
