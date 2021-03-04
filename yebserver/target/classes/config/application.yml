@@ -15,6 +15,10 @@ spring:
       auto-commit: true
       connection-timeout: 30000
       connection-test-query: select 1
+  jackjson:
+    date-format: yyyy-MM-dd
+    time-zoneL: Asia/Shanghai
+    default-property-inclusion: ALWAYS
 
 
 mybatis-plus:

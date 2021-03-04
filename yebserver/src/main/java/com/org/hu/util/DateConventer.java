@@ -1,7 +1,10 @@
 package com.org.hu.util;
 
 
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -18,53 +21,17 @@ import java.util.Date;
 //@Component
 @Configuration
 public class DateConventer {
-//    @Override
-//    public LocalDate convert(String s) {
-//        if(null==s||"".equals(s)){
-//            s=LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        }
-//        try{
-//            LocalDate.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    @Value("${spring.jackson.date-format:yyyy-MM-dd}")
+    private String pattern;
+
+    // localDateTime 序列化器
     @Bean
-    public Converter<String, String> StringConvert() {
-        return new Converter<String, String>() {
-            @Override
-            public String convert(String source) {
-                return StringUtils.trimToNull(source);
-            }
-        };
+    public LocalDateTimeSerializer localDateTimeSerializer() {
+        return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(pattern));
     }
 
     @Bean
-    public Converter<String, LocalDate> LocalDateConvert() {
-        return new Converter<String, LocalDate>() {
-            @Override
-            public LocalDate convert(String source) {
-                if (StringUtils.isBlank(source)) {
-                    return null;
-                }
-                return LocalDate.parse(source, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            }
-
-        };
-    }
-
-    @Bean
-    public Converter<String, LocalDateTime> LocalDateTimeConvert() {
-        return new Converter<String, LocalDateTime>() {
-            @Override
-            public LocalDateTime convert(String source) {
-                if (StringUtils.isBlank(source)) {
-                    return null;
-                }
-                return LocalDateTime.parse(source, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            }
-
-        };
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -> builder.serializerByType(LocalDateTime.class, localDateTimeSerializer());
     }
 }

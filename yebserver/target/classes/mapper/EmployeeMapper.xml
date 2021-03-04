@@ -117,42 +117,6 @@
             AND e.beginDate #{beginDateScope[0]}  BETWEEN and #{beginDateScope[1]}
         </if>
         ORDER BY
-        e.id DESCSELECT
-        e.*,
-        n.id AS nid,
-        n.`name` AS nname,
-        p.id AS pid,
-        p.`name` AS pname,
-        d.id AS did,
-        d.`name` AS dname,
-        j.id AS jid,
-        j.`name` AS jname,
-        pos.id AS posid,
-        pos.`name` AS posname
-        FROM
-        t_employee e,
-        t_nation n,
-        t_position pos,
-        t_department d,
-        t_joblevel j,
-        t_politics_status p
-        WHERE
-        e.nationId = n.id
-        AND e.posId = pos.id
-        AND e.departmentId = d.id
-        AND e.jobLevelId = j.id
-        AND e.politicId = p.id
-        AND e.`name` LIKE '%王%'
-        AND e.politicId =
-        AND e.nationId =
-        AND e.jobLevelId =
-        AND e.posId =
-        AND e.departmentId =
-        AND e.engageForm =
-        AND e.beginDate BETWEEN
-        AND
-        ORDER BY
         e.id DESC
-
     </select>
 </mapper>

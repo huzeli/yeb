@@ -64,6 +64,18 @@ public class Employee implements Serializable {
     @TableField("politicId")
     private Integer politicId;
 
+    @ApiModelProperty(value = "职位ID")
+    @TableField("posId")
+    private Integer posId;
+
+    @ApiModelProperty(value = "职称等级ID")
+    @TableField("jobLevelId")
+    private Integer jobLevelId;
+
+    @ApiModelProperty(value = "所属部门")
+    @TableField("departmentId")
+    private Integer departmentId;
+
     @ApiModelProperty(value = "邮箱")
     private String email;
 

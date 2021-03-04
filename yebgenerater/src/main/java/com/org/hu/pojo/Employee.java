@@ -1,5 +1,7 @@
 package com.org.hu.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -26,6 +28,10 @@ import lombok.experimental.Accessors;
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("id")
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
 
     @ApiModelProperty(value = "员工姓名")
     private String name;
